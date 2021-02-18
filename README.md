@@ -14,9 +14,9 @@ Compasso Flights é um 🤖 que te auxilia na busca de passagens aéreas, bem co
 ### Tecnologias
 
 - <a href=''>
-    <img align='center' width='8%' src='https://res-3.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/dcph7ykbnygzl7i5hmft'>DialogFlow</img>
+    <img align='center' width='25px' src='https://res-3.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/dcph7ykbnygzl7i5hmft'>DialogFlow</img>
 </a>
 
 - <a href=''>
-    <img align='center' width='7%' src='https://nodejs.org/static/images/logo-hexagon-card.png'>NodeJS</img>
+    <img align='center' width='25px' src='https://nodejs.org/static/images/logo-hexagon-card.png'>NodeJS</img>
 </a>
