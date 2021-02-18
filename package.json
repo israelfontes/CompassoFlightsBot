@@ -1,0 +1,13 @@
+{
+  "name": "CompassoFlightsBot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/israelfontes/CompassoFlightsBot.git",
+  "author": "<israelfontes@ufrn.edu.br>",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0"
+  }
+}
