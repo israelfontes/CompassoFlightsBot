@@ -9,11 +9,10 @@ dotenv.config();
 const app = express();
 
 // 
-const user = process.env.USER_AUTH
 const pass = process.env.PASS_AUTH
 
 app.use(basicAuth({
-    users: { user : pass }
+    users: { "admin":pass }
 }));
 
 app.use(express.json());
@@ -24,4 +23,6 @@ routes.post('/compassoflights/webhook', webhook.webhook);
 
 app.use(routes);
 
-app.listen(3000);
+app.listen(process.env.PORT);
+
+console.log('On listen port: '+process.env.PORT);
