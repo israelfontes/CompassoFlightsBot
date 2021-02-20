@@ -12,8 +12,12 @@
 <a href='https://t.me/CompassoFlights_bot'>Compasso Flights</a> é um 🤖 (bot) que te auxilia na busca de passagens aéreas, a fazer uma reserva de lugar, realizar check-in de voo e verificar o status do voo. 
 
 ### ToDo
-- [x] Integrar bot no Telegram com o DialogFlow
-- [x] Criar intenções básicas
+- [x] <b>Integrar bot no Telegram com o DialogFlow</b>
+- [x] <b>Criar intenções básicas</b>
+- [X] <b>Intenção de Consulta de voos</b> 
+- [ ] <b>Intenção de Reserva de voo</b>
+    <b>Problema:</b> como receber os dados de mais de um passageiro?
+    
 
 
 ### Tecnologias
