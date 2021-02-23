@@ -1,9 +1,22 @@
 const axios = require('axios');
 const dotenv = require('dotenv');
+const brazilian_airports = require('../data/brazilian_airports_citys.json');
 
 dotenv.config();
 
 const url_api = process.env.API_URL_FLIGHT;
+
+function brazilian_airport_IATA(city){
+    if( city.indexOf('/') != -1 ){
+        return brazilian_airports[city[0,city.indexOf('/')-1]];
+
+    }else if( city.indexOf(',') != -1 ){
+        return brazilian_airports[city[0,city.indexOf(',')-1]];
+
+    }else{
+        return brazilian_airports[city];
+    }
+}
 
 /*------This function returns the context that has more parameters-----*/
 function bigger_context(contexts){
@@ -192,10 +205,10 @@ module.exports = {
                 switch(error.response.status){
                     
                     case 400:
-                        responseDialogFlow = dialogflow_response("Infelizmente não encontrei seus dados 😞\n\nPosso te ajudar com outra coisa?", session+"/contexts/DefaultWelcomeIntent-followup-2");
+                        responseDialogFlow = dialogflow_response("Infelizmente não encontrei seus dados 😞\n\nPosso te ajudar com outra coisa?", session+"/contexts/");
                     
                     default:
-                        responseDialogFlow = dialogflow_response("Infelizmente tive um problema ao procurar seus dados 😞\n\nTe ajudo com algo mais?", session+"/contexts/DefaultWelcomeIntent-followup-2");
+                        responseDialogFlow = dialogflow_response("Infelizmente tive um problema ao procurar seus dados 😞\n\nTe ajudo com algo mais?", session+"/contexts/");
                         break;
                 }
             }
@@ -208,11 +221,17 @@ module.exports = {
         else if( action == 'yes_roundTrip' || action == 'no_roundTrip' ){
             
             const { parameters } = outputContexts[bigger_context(outputContexts)]
-            console.log(parameters.whereFrom.IATA)
-            console.log(parameters.whereTo.IATA)
+             console.log(parameters.whereFrom)
+           
+             if( brazilian_airport_IATA(parameters.whereFrom) == undefined )
+                return res.json(dialogflow_response("Desculpe, mas não consegui encontrar nenhum aeroporto na cidade de partidade.\n\nTente novamente informando uma outra cidade 😉",session+"/contexts/DefaultWelcomeIntent-followup-2"));
+            else if( brazilian_airport_IATA(parameters.whereTo) == undefined )
+                return res.json(dialogflow_response("Desculpe, mas não encontrei nenhum aeroporto na cidade de destino.\n\nTente novamente informando um outro destino 😉",session+"/contexts/DefaultWelcomeIntent-followup-2"));
+            
+
             const data = {
-                "whereFrom": parameters.whereFrom.IATA,
-                "whereTo": parameters.whereTo.IATA,
+                "whereFrom": brazilian_airport_IATA(parameters.whereFrom),
+                "whereTo": brazilian_airport_IATA(parameters.whereTo),
                 "departureDate": String(parameters.departureDate).slice(0,10),
                 "roundTrip": action == 'yes_roundTrip',
                 "returnDate": action == 'yes_roundTrip' ? String(parameters.returnDate).slice(0,10) : '',
