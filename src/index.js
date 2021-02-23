@@ -20,6 +20,7 @@ app.use(express.json());
 const routes = Router();
 
 routes.post('/compassoflights/webhook', webhook.webhook);
+routes.get("/", "ok!");
 
 app.use(routes);
 
