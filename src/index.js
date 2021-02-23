@@ -20,7 +20,9 @@ app.use(express.json());
 const routes = Router();
 
 routes.post('/compassoflights/webhook', webhook.webhook);
-routes.get("/", "ok!");
+routes.get('/', function(req, res) {
+    res.send('Compasso Flights!');
+  })
 
 app.use(routes);
 
