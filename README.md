@@ -13,11 +13,14 @@
 
 ### ToDo
 - [x] <b>Integrar bot no Telegram com o DialogFlow</b>
-- [x] <b>Criar intenções básicas</b>
+- [x] <b>Criar intenções básicas</b> <i>(Welcome, About me)</i>
+- [x] <b>Intenção Status de Voo</b>
+- [x] <b>Intenção Check-in</b>
 - [X] <b>Intenção de Consulta de voos</b> 
 - [ ] <b>Intenção de Reserva de voo</b>
-    <b>Problema:</b> como receber os dados de mais de um passageiro?
-    
+    <b>Problema:</b> <i>como receber os dados de mais de um passageiro?</i>
+    <b>Problema:</b> <i>como mostrar as vagas disponíveis no voo de forma intuitiva? </i>
+    <b>Problema: </b><i>como buscar por aeroportos pelo nome da cidade?</i>
 
 
 ### Tecnologias
