@@ -150,14 +150,12 @@ module.exports = {
                 "cpf": parameters.cpf
             }
 
-            console.log(ob);
             try{
                 const result = await axios.post(url_api+'/checkin',ob);                
                 let textResponse = "Check-in realizado com sucesso! ✅\n\nAnote seu código de check-in: " + result.data.checkinCode;
                 responseDialogFlow = dialogflow_response(textResponse, session+"/contexts/DefaultWelcomeIntent-followup-2");
             
             }catch(error){
-                console.log(error)
                 switch(error.response.status){
                     
                     case 400:
@@ -198,17 +196,32 @@ module.exports = {
                 });
 
                 let textResponse = "Estão aqui os dados do seu voo 🛫\n" + plot_flight(result.data, result.data.roundTrip);
+                textResponse += "\n\nPosso te com algo mais?";
 
                 responseDialogFlow = dialogflow_response(textResponse, session+"/contexts/DefaultWelcomeIntent-followup-2");
-            
+
             }catch(error){
+ 
                 switch(error.response.status){
                     
                     case 400:
-                        responseDialogFlow = dialogflow_response("Infelizmente não encontrei seus dados 😞\n\nPosso te ajudar com outra coisa?", session+"/contexts/");
-                    
+    
+                        let text = '';
+                        switch( error.response.data.message ){
+                            case "flightCode não encontrado":
+                                text = "Infelizmente não encontrei o número do seu voo 😞\n\nPosso te ajudar com outra coisa?";
+                                break;
+                            case "Nenhum passageiro foi encontrado com este CPF":
+                                text = "Desculpa, mas o CPF informado não consta neste voo.\n\nTe ajudo com mais alguma coisa?";
+                                break;
+                            default:
+                                text = "Infelizmente não encontrei seus dados 😞\n\nPosso te ajudar com outra coisa?";
+                                break;
+                        }
+                        responseDialogFlow = dialogflow_response(text, session+"/contexts/DefaultWelcomeIntent-followup-2");
+                        break;
                     default:
-                        responseDialogFlow = dialogflow_response("Infelizmente tive um problema ao procurar seus dados 😞\n\nTe ajudo com algo mais?", session+"/contexts/");
+                        responseDialogFlow = dialogflow_response("Infelizmente tive um problema ao procurar seus dados 😞\n\nTe ajudo com algo mais?", session+"/contexts/DefaultWelcomeIntent-followup-2");
                         break;
                 }
             }
