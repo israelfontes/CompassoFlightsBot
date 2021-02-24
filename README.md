@@ -13,13 +13,15 @@
 
 ### Diagram
 <div align='center'>
-
 <a href='https://github.com/israelfontes/CompassoFlightsBot'>
-    <img align='center' width='100%' src='img/diagram.png'/>
+    <img align='center' src='img/diagram.png'/>
 </a>
-    <h2 align='center'>Compasso Flights</h2>
-    <p>Seu assistente de voos ✈️</p>
 </div>
+
+A arquitetura do bot é bastante simples. O agente mais a esquerda é o usuário final, aquele que irá fazer uso das funcionalidades oferecidas pelo <a href='https://t.me/CompassoFlights_bot'>Compasso Flights  ✈️</a><br>
+O segundo agente é o Telegram, canal onde o bot foi publicado e poderá ser consumido pelo usuário final. Ele possui uma integração direta com o DialogFlow, e isso facilitou muito o desenvolvimento dessa arquitetura.<br>
+O terceiro agente é o DialogFlow, uma importante ferramenta de NLP desenvolvida pela Google. É nela onde acontece todo o controle conversacional entre humano e máquina, tornando possível que a máquina entenda as intenções humanas e execute uma ação.<br>
+O último agente é um webhook desenvolvido em NodeJS hospedado na plataforma Heroku, ele é quem possibilita a comunicação do DialogFlow com a API de dados de voos e faz todas as tratativas necessárias para realizar as ações solicitadas pelo usuário.
 
 ### ToDo
 - [x] <b>Integrar bot no Telegram com o DialogFlow</b>
@@ -27,7 +29,7 @@
 - [x] <b>Intenção Status de Voo</b>
 - [x] <b>Intenção Check-in</b>
 - [X] <b>Intenção de Consulta de voos</b> 
-- [ ] <b>Intenção de Reserva de voo</b><br>
+- [x] <b>Intenção de Reserva de voo</b><br>
     <b>Problema:</b><i>como buscar por aeroportos pelo nome da cidade?</i><br>
     <blockquote>Utilizando uma lista feita a mão de todos os aeroportos do Brasil com nome da cidade e código IATA.
     </blockquote><br>
