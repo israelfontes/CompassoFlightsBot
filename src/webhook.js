@@ -133,7 +133,7 @@ module.exports = {
             //Get up API
             try{
                 await axios.get(url_api);
-                
+
             //Case API is not responding, return error
             }catch(error){
                 return res.json(dialogflow_response("Desculpe, mas estou fora do ar no momento 😣",session+"/contexts/DefaultWelcomeIntent-followup-2"));
@@ -195,7 +195,7 @@ module.exports = {
                 });
 
                 let textResponse = "Estão aqui os dados do seu voo 🛫\n" + plot_flight(result.data, result.data.roundTrip);
-                textResponse += "\n\nPosso te com algo mais?";
+                textResponse += "\n\nPosso te ajuda com algo mais?";
 
                 responseDialogFlow = dialogflow_response(textResponse, session+"/contexts/DefaultWelcomeIntent-followup-2");
 
@@ -430,7 +430,7 @@ module.exports = {
                 try{
 
                     let result = await axios.post(url_api+'/reservation', tempPersistence[session]);
-                    responseDialogFlow = dialogflow_response("Qual será a forma de pagamento?\n\nCartão de Crédito 💳\nCartão de Débito  💳\nBoleto Bancário   💵", session+"/contexts/DefaultWelcomeIntent-RealizarReseva-Poltronas-Passageiro-followup");
+                    responseDialogFlow = dialogflow_response("Qual será a forma de pagamento?\n\nCartão de Crédito 💳\nCartão de Débito  💳\nBoleto Bancário    💵", session+"/contexts/DefaultWelcomeIntent-RealizarReseva-Poltronas-Passageiro-followup");
                     tempPersistence[session]['flightCode'] = result.data.flightCode;
                 
                 }catch(error){

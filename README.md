@@ -9,7 +9,9 @@
 
 ### Overview
 
-<a href='https://t.me/CompassoFlights_bot'>Compasso Flights</a> (@CompassoFlights_bot) é um 🤖 (bot) que te auxilia na busca de passagens aéreas, a fazer reserva de passagem, realizar check-in de voo e verificar o status do voo. 
+<a href='https://t.me/CompassoFlights_bot'>Compasso Flights</a> (@CompassoFlights_bot) é um 🤖 (bot) que te auxilia na busca de passagens aéreas, a fazer reserva de passagem, realizar check-in de voo e verificar o status do voo.
+
+<b>Atenção: </b> é muito recomendado que você utilize o Telegram em seu aplicativo mobile para uma melhor experiência.
 
 ### Architecture Diagram
 <div align='center'>
@@ -19,11 +21,11 @@
 </div>
 
 A arquitetura do bot é bastante simples. O agente mais a esquerda é o usuário final, aquele que irá fazer uso das funcionalidades oferecidas pelo <a href='https://t.me/CompassoFlights_bot'>Compasso Flights  ✈️</a>
-<br>
+</br>
 O segundo agente é o Telegram, canal onde o bot foi publicado e poderá ser consumido pelo usuário final. Ele possui uma integração direta com o DialogFlow, e isso facilitou muito o desenvolvimento dessa arquitetura.
-<br>
+</br>
 O terceiro agente é o DialogFlow, uma importante ferramenta de NLP desenvolvida pela Google. É nela onde acontece todo o controle conversacional entre humano e máquina, tornando possível que a máquina entenda as intenções humanas e execute uma ação.
-<br>
+</br>
 O último agente é um webhook desenvolvido em NodeJS hospedado na plataforma Heroku, ele é quem possibilita a comunicação do DialogFlow com a API de dados de voos e faz todas as tratativas necessárias para realizar as ações solicitadas pelo usuário.
 
 ### ToDo
