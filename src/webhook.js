@@ -133,8 +133,7 @@ module.exports = {
             //Get up API
             try{
                 await axios.get(url_api);
-                console.log("GetUp");
-
+                
             //Case API is not responding, return error
             }catch(error){
                 return res.json(dialogflow_response("Desculpe, mas estou fora do ar no momento 😣",session+"/contexts/DefaultWelcomeIntent-followup-2"));
@@ -234,8 +233,7 @@ module.exports = {
         else if( action == 'yes_roundTrip' || action == 'no_roundTrip' ){
             
             const { parameters } = outputContexts[bigger_context(outputContexts)]
-             console.log(parameters.whereFrom)
-           
+             
              if( brazilian_airport_IATA(parameters.whereFrom) == undefined )
                 return res.json(dialogflow_response("Desculpe, mas não consegui encontrar nenhum aeroporto na cidade de partidade.\n\nTente novamente informando uma outra cidade 😉",session+"/contexts/DefaultWelcomeIntent-followup-2"));
             else if( brazilian_airport_IATA(parameters.whereTo) == undefined )
@@ -257,7 +255,6 @@ module.exports = {
                 let isExistFlight = false;
 
                 for(let i = 0; i < result.data.length; i++){
-                    console.log('for')
                     const flight = result.data[i];
                     
                     //if it is a round trip, check if you have a seat on the going and return flights
@@ -280,12 +277,12 @@ module.exports = {
 
                 tempPersistence[session] = result.data;
                 
-                console.log(result.data)
+                //console.log(result.data)
 
                 responseDialogFlow = dialogflow_response(textResponse,session+"/contexts/realizar-reserva");
 
             }catch(error){
-                console.log(error.response.status)                
+                //console.log(error.response.status)                
                 switch(error.response.status){
                     case 400:
                         
@@ -312,8 +309,8 @@ module.exports = {
                         responseDialogFlow = dialogflow_response("Error","");
                 }
 
-                console.log(error.message)
-                console.log(error.response.data.message)                    
+                //console.log(error.message)
+                //console.log(error.response.data.message)                    
             }   
         /*-------------------------------------------------------------------------------------------------------------*/
         
@@ -335,7 +332,7 @@ module.exports = {
             let seatsPlot = plot_seats(flight);
 
             responseDialogFlow = dialogflow_response(seatsPlot, session+"/contexts/DefaultWelcomeIntent-RealizarReseva-followup");
-            console.log(seatsPlot);
+            //console.log(seatsPlot);
         /*-------------------------------------------------------------------------------------------------------------*/
         
         
@@ -372,7 +369,7 @@ module.exports = {
                 //Save selected list seats going
                 tempPersistence[session]['selectedSeatsGoing'] = listSeats;
 
-                console.log(tempPersistence[session])
+                //console.log(tempPersistence[session])
 
                 return res.json(dialogflow_response(plotSeats, session+"/contexts/DefaultWelcomeIntent-RealizarReseva-followup"));
             }
@@ -393,7 +390,7 @@ module.exports = {
             responseDialogFlow = dialogflow_response(text, session+"/contexts/DefaultWelcomeIntent-RealizarReseva-Poltronas-followup");
             tempPersistence[session]['howManyPeopleisQuestion'] = 1;
             
-            console.log(tempPersistence[session])
+            //console.log(tempPersistence[session])
         }
         /*-------------------------------------------------------------------------------------------------------------*/
         
@@ -429,21 +426,29 @@ module.exports = {
                 delete tempPersistence[session].selectedSeatsGoing;
                 delete tempPersistence[session].freeSeatsReturn;
                 delete tempPersistence[session].freeSeatsGoing;
-                console.log(tempPersistence[session]);
 
                 try{
+
                     let result = await axios.post(url_api+'/reservation', tempPersistence[session]);
-                    console.log(result.data.flightCode);
-                    console.log(tempPersistence[session]);
-                    responseDialogFlow = dialogflow_response("Reserva feita com sucesso! ✅\nEsse é o código do voo: "+result.data.flightCode, session+"/contexts/DefaultWelcomeIntent-followup-2");
-            
+                    responseDialogFlow = dialogflow_response("Qual será a forma de pagamento?\n\nCartão de Crédito 💳\nCartão de Débito  💳\nBoleto Bancário   💵", session+"/contexts/DefaultWelcomeIntent-RealizarReseva-Poltronas-Passageiro-followup");
+                    tempPersistence[session]['flightCode'] = result.data.flightCode;
+                
                 }catch(error){
-                    console.log(error.response.data.message)
+                    let message = error.response.data.message;
+                    if( message.slice(0,6) == "E11000" ){
+                        let index = message.indexOf('"')
+                        responseDialogFlow = dialogflow_response("Desculpe, mas já encontrei uma passagem para o CPF: "+ message.slice(index+1,index+12) +". Não conseguirei realizar outra reserva 🙁\n\nPosso te ajudar com outra coisa?", session+"/contexts/DefaultWelcomeIntent-followup-2");
+                    }else{
+                        responseDialogFlow = dialogflow_response("Desculpe, mas o CPF informado é inválido 🙁\n\nVerifique se está correto e tente novamente.", session+"/contexts/DefaultWelcomeIntent-followup-2");
+                    }   
                 }
             }
         }
         /*-------------------------------------------------------------------------------------------------------------*/
-        
+        else if( action == 'checkout' ){
+            responseDialogFlow = dialogflow_response("Sua reserva foi realizada com sucesso! ✅😊\nAnote o número do seu voo: "+tempPersistence[session].flightCode+"\n\nO que mais posso fazer por você?", session+"/contexts/DefaultWelcomeIntent-followup-2");
+        }
+
         return res.json(responseDialogFlow);
     }
 }

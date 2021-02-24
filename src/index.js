@@ -21,7 +21,6 @@ const routes = Router();
 
 routes.post('/compassoflights/webhook', webhook.webhook);
 
-
 app.use(routes);
 
 app.listen(process.env.PORT);

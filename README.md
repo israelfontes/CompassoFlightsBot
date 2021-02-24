@@ -9,18 +9,21 @@
 
 ### Overview
 
-<a href='https://t.me/CompassoFlights_bot'>Compasso Flights</a> é um 🤖 (bot) que te auxilia na busca de passagens aéreas, a fazer reserva de passagem, realizar check-in de voo e verificar o status do voo. 
+<a href='https://t.me/CompassoFlights_bot'>Compasso Flights</a> (@CompassoFlights_bot) é um 🤖 (bot) que te auxilia na busca de passagens aéreas, a fazer reserva de passagem, realizar check-in de voo e verificar o status do voo. 
 
-### Diagram
+### Architecture Diagram
 <div align='center'>
 <a href='https://github.com/israelfontes/CompassoFlightsBot'>
-    <img align='center' src='img/diagram.png'/>
+    <img align='center' src='img/diagram_architecture.png'/>
 </a>
 </div>
 
-A arquitetura do bot é bastante simples. O agente mais a esquerda é o usuário final, aquele que irá fazer uso das funcionalidades oferecidas pelo <a href='https://t.me/CompassoFlights_bot'>Compasso Flights  ✈️</a><br>
-O segundo agente é o Telegram, canal onde o bot foi publicado e poderá ser consumido pelo usuário final. Ele possui uma integração direta com o DialogFlow, e isso facilitou muito o desenvolvimento dessa arquitetura.<br>
-O terceiro agente é o DialogFlow, uma importante ferramenta de NLP desenvolvida pela Google. É nela onde acontece todo o controle conversacional entre humano e máquina, tornando possível que a máquina entenda as intenções humanas e execute uma ação.<br>
+A arquitetura do bot é bastante simples. O agente mais a esquerda é o usuário final, aquele que irá fazer uso das funcionalidades oferecidas pelo <a href='https://t.me/CompassoFlights_bot'>Compasso Flights  ✈️</a>
+<br>
+O segundo agente é o Telegram, canal onde o bot foi publicado e poderá ser consumido pelo usuário final. Ele possui uma integração direta com o DialogFlow, e isso facilitou muito o desenvolvimento dessa arquitetura.
+<br>
+O terceiro agente é o DialogFlow, uma importante ferramenta de NLP desenvolvida pela Google. É nela onde acontece todo o controle conversacional entre humano e máquina, tornando possível que a máquina entenda as intenções humanas e execute uma ação.
+<br>
 O último agente é um webhook desenvolvido em NodeJS hospedado na plataforma Heroku, ele é quem possibilita a comunicação do DialogFlow com a API de dados de voos e faz todas as tratativas necessárias para realizar as ações solicitadas pelo usuário.
 
 ### ToDo
@@ -46,10 +49,22 @@ O último agente é um webhook desenvolvido em NodeJS hospedado na plataforma He
     <br>
     <b>Problema:</b> <i>como receber os dados de mais de um passageiro?</i> <br>
     <blockquote>Criando uma intenção recorrente que solicita as informações necessárias para a reserva de cada uma das pessoas de acordo com a quantidade de passageiros informadas durante a reserva.</blockquote>
+- [ ] <b>Check-out</b> 
+    A intenção de Check-Out ainda precisa ser melhorada, no momento apenas é perguntado qual será o método de pagamento e não é feito nenhum tipo de tratativa com relação a isso. As próximas <i>features</i> trarão um check-out mais aprimorado que irá gerar boleto para pagamento ou página especifica para finalização do pagamento com cartão de crédito ou débito.
 
+### Intents Diagram
+<div align='center'>
+<a href='https://github.com/israelfontes/CompassoFlightsBot'>
+    <img align='center' src='img/diagram_intents.png'/>
+</a>
+</div>
 
-### Tecnologias
+### Development and Tests
+Durante o processo de desenvolvimento, foi utilizado o Ngrok para criar um tunel entre a rede local e a internet para que o DialogFlow tivesse acesso ao webhook durante o processo de desenvolvimento. Dessa forma o debug e feedback aconteceram de forma mais rápida. 
 
+Os testes de cada funcionalidade foram realizados manualmente, dentro do aplicativo Telegram. Dessa maneira pude ter uma ideia melhor da experiência de usuário. 
+
+### Technologies
 - <a href='https://dialogflow.cloud.google.com/'>
     <img align='center' width='25px' src='https://res-3.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_256,w_256,f_auto,q_auto:eco/dcph7ykbnygzl7i5hmft'>DialogFlow</img>
 </a>
