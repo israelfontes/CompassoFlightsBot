@@ -9,7 +9,7 @@
 
 ### Overview
 
-<a href='https://t.me/CompassoFlights_bot'>Compasso Flights</a> é um 🤖 (bot) que te auxilia na busca de passagens aéreas, a fazer uma reserva de lugar, realizar check-in de voo e verificar o status do voo. 
+<a href='https://t.me/CompassoFlights_bot'>Compasso Flights</a> é um 🤖 (bot) que te auxilia na busca de passagens aéreas, a fazer reserva de passagem, realizar check-in de voo e verificar o status do voo. 
 
 ### ToDo
 - [x] <b>Integrar bot no Telegram com o DialogFlow</b>
@@ -18,9 +18,17 @@
 - [x] <b>Intenção Check-in</b>
 - [X] <b>Intenção de Consulta de voos</b> 
 - [ ] <b>Intenção de Reserva de voo</b>
-    <b>Problema:</b> <i>como receber os dados de mais de um passageiro?</i>
+    <b>Problema:</b><i>como buscar por aeroportos pelo nome da cidade?</i><p>
+    <blockquote>Utilizando uma lista feita a mão de todos os aeroportos do Brasil com nome da cidade e código IATA.<p></blockquote>
     <b>Problema:</b> <i>como mostrar as vagas disponíveis no voo de forma intuitiva? </i>
-    <b>Problema: </b><i>como buscar por aeroportos pelo nome da cidade?</i>
+    <div align='center'>
+        <a href='https://github.com/israelfontes/CompassoFlightsBot'>
+            <img align='center' width='150px' src='img/plot_seats.jpg'/>
+        </a>
+    </div>
+    <blockquote> Esse foi um dos grandes problemas desse projeto, os usuários não tinham uma boa noção das poltronas vazias da aeronave para que pudessem realizar sua escolha no momento da reserva. Utilizando essa abordagem é possível oferecer ao cliente uma minima visualização dos assentos livres e ocupados, para que ele escolha os mais adequados.</blockquote>
+    <p>
+    <b>Problema:</b> <i>como receber os dados de mais de um passageiro?</i> <p>
 
 
 ### Tecnologias
